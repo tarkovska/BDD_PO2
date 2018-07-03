@@ -58,8 +58,6 @@ public class StepDefinitions {
         public void i_proceed_to_checkout() throws Throwable {
             CartViewPage cartViewPage = new CartViewPage(driver);
             cartViewPage.clickOrder();
-            WebElement order = driver.findElement(By.xpath("//table[@class = 'shop_table shop_table_responsive cart woocommerce-cart-form__contents']/tbody/tr[2]/td/a"));
-            order.click();
         }
 
         @And("^Fill customer's name \"([^\"]*)\"$")
@@ -98,5 +96,7 @@ public class StepDefinitions {
             CheckInPage checkInPage = new CheckInPage(driver);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             Assert.assertEquals(checkInPage.getNotification(), "Thank you. Your order has been received.");
+
         }
+
 }
