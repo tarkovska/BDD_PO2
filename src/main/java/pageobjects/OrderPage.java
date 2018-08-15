@@ -27,6 +27,9 @@ public class OrderPage {
     @FindBy(id = "place_order")
     private WebElement placeOrder;
 
+    @FindBy(xpath = "//ul[@class='woocommerce-error']/li")
+    private WebElement notification;
+
     public OrderPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -59,5 +62,8 @@ public class OrderPage {
     public CheckInPage clickPlaceOrder() {
         placeOrder.sendKeys(Keys.ENTER);
         return new CheckInPage(driver);
+    }
+    public String getNotification(){
+        return notification.getText();
     }
 }

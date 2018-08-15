@@ -27,7 +27,7 @@ public class StepDefinitions {
     @When("^I fill in with \"([^\"]*)\"$")
         public void i_fill_in_with(String arg2) throws Throwable {
             HomePage homePage = new HomePage(driver);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             homePage.search(arg2);
         }
 
@@ -89,14 +89,21 @@ public class StepDefinitions {
             orderPage.clickTerms();
         }
 
-        @Then("^I checkout$")
-        public void i_checkout() throws Throwable {
+        @Then("^I can see succesful checkout page with message \"([^\"]*)\"$")
+        public void i_checkout(String message) throws Throwable {
             OrderPage orderPage = new OrderPage(driver);
             orderPage.clickPlaceOrder();
             CheckInPage checkInPage = new CheckInPage(driver);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            Assert.assertEquals(checkInPage.getNotification(), "Thank you. Your order has been received.");
+            Assert.assertEquals(checkInPage.getNotification(), message);
 
         }
+        @Then("^I can see unsuccesful checkout page with message \"([^\"]*)\"$")
+        public void i_uncheckout(String message) throws Throwable {
+        OrderPage orderPage = new OrderPage(driver);
+        orderPage.clickPlaceOrder();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Assert.assertEquals(orderPage.getNotification(), message);
 
+    }
 }
